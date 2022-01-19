@@ -13,6 +13,7 @@ const CustomInput = styled.input<IInput>`
   color: var(--color-black);
   box-sizing: border-box;
   width: 100%;
+  transition: all 0.3s ease;
   &:hover {
     border-color: var(--color-gray-1);
   }

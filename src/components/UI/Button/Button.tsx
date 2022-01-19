@@ -18,7 +18,7 @@ const ButtonFill = styled.button`
   background: var(--color-grad-1);
   border: none;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
   &:hover {
     opacity: 0.85;
   }
@@ -35,14 +35,40 @@ const ButtonFill = styled.button`
   }
 `;
 
+const WrapperLeft = styled.div`
+  margin-right: 8px;
+`;
+
+const WrapperRight = styled.div`
+  margin-left: 11px;
+`;
+
 const ButtonTransparent = styled.button`
+  padding: 4px;
   background-color: transparent;
   border: none;
   display: flex;
   justify-content: center;
-  align-items: center;
-  &:hover svg {
-    
+  align-content: center;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  & svg {
+    transition: all 0.3s ease;
+  }
+  &:hover {
+    color: var(--color-blue-1);
+    & svg {
+      stroke: var(--color-blue-1);
+    }
+  }
+  &:focus {
+    outline: 2px solid var(--color-blue);
+    border-radius: 7px;
+    color: var(--color-blue-1);
+    & svg {
+      stroke: var(--color-blue-1);
+    }
   }
 `;
 
@@ -58,9 +84,9 @@ const Button = forwardRef<HTMLButtonElement, IPropsButton>(
       case 'transparent':
         return (
           <ButtonTransparent ref={ref} {...props}>
-            {iconLeft ? iconLeft: null}
+            {iconLeft ? <WrapperLeft>{iconLeft}</WrapperLeft> : null}
             {children}
-            {iconRight ? iconRight: null}
+            {iconRight ? <WrapperRight>{iconRight}</WrapperRight> : null}
           </ButtonTransparent>
         );
       default:

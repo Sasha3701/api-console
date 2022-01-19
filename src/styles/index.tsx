@@ -11,6 +11,7 @@ const GlobalStyle = createGlobalStyle`
         --color-error: #CF2C00;
         --color-white: #FFF;
         --color-blue: #45a5ff7a;
+        --color-blue-1: #0055FB;
         --color-gray-2: #999999;
         --color-grad-1: linear-gradient(180deg, #45A6FF 0%, #0055FB 100%), #C4C4C4;
         --color-grad-2: linear-gradient(0deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)), linear-gradient(180deg, #45A6FF 0%, #0055FB 100%), #C4C4C4;
