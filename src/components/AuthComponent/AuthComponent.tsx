@@ -4,7 +4,7 @@ import Main from '../Main/Main';
 import Title from '../Title/Title';
 import {Button, Input} from '../UI';
 import {Form, Formik, FormikHelpers} from 'formik';
-import {Values} from './AuthComponent.props';
+import {IUser} from '../../models';
 import {AuthSchema} from '../../utils/Schemes';
 import {Logo} from '../../images';
 
@@ -33,6 +33,12 @@ const CustomForm = styled(Form)`
   width: 100%;
 `;
 
+const initialState: IUser = {
+  login: '',
+  sublogin: '',
+  password: '',
+};
+
 const AuthComponent = (): JSX.Element => {
   return (
     <Container>
@@ -40,13 +46,9 @@ const AuthComponent = (): JSX.Element => {
       <Wrapper>
         <Title variant="auth">API-консолька</Title>
         <Formik
-          initialValues={{
-            login: '',
-            sublogin: '',
-            password: '',
-          }}
+          initialValues={initialState}
           validationSchema={AuthSchema}
-          onSubmit={(values: Values, {setSubmitting}: FormikHelpers<Values>) => {
+          onSubmit={(values: IUser, {setSubmitting}: FormikHelpers<IUser>) => {
             setTimeout(() => {
               alert(JSON.stringify(values, null, 2));
               setSubmitting(false);
