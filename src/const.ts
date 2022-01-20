@@ -1,4 +1,18 @@
+export const PATHS = {
+  HOME: {
+    path: '/',
+  },
+  AUTH: {
+    path: '/auth',
+  },
+};
+
 export const INPUT_NAME = {
   PASSWORD: 'password',
-  OPTIONAL: 'optional',
+  LOGIN: 'login',
+  SUBLOGIN: 'sublogin',
+};
+
+export const REGX = {
+  AUTH: /[a-z]+/i,
 };

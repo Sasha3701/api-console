@@ -4,7 +4,6 @@ import {IPropsInput, IInput, ILabel} from './Input.props';
 
 const CustomInput = styled.input<IInput>`
   display: inline-block;
-  position: relative;
   border-radius: 5px;
   border: 1px solid ${({error}): string => (error ? `var(--color-error)` : `var(--color-gray)`)};
   padding: 5px 10px;
@@ -43,8 +42,10 @@ const OptionalText = styled.p`
 const Wrapper = styled.div`
   width: 100%;
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: flex-start;
+  margin-top: 20px;
 `;
 
 const Input = forwardRef<HTMLInputElement, IPropsInput>(({label = '', name = '', error = false, optional = false, ...props}, ref): JSX.Element => {
