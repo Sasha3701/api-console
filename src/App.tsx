@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Input} from './components/UI';
+import {Button, Dropdown, Input} from './components/UI';
 import { CloseIcon, FullIcon, LogoutIcon, NoFullIcon, SortIcon } from './images';
 
 const App = () => {
@@ -14,6 +14,7 @@ const App = () => {
       <Button theme='transparent'><CloseIcon /></Button>
       <Button theme='transparent' iconLeft={<SortIcon />}>Форматировать</Button>
       <Button theme='transparent' iconRight={<LogoutIcon />}>Выйти</Button>
+      <Dropdown title='Test' status={true}/>
     </>
   );
 };

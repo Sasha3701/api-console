@@ -53,6 +53,7 @@ const ButtonTransparent = styled.button`
   font-size: 16px;
   transition: all 0.3s ease;
   box-sizing: border-box;
+  cursor: pointer;
   & svg {
     transition: all 0.3s ease;
   }
