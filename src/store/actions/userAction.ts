@@ -1,7 +1,7 @@
 import {userTypes} from '../actionTypes';
 import {UserFailure, UserFailurePayload, UserRequest, UserSuccess, UserSuccessPayload} from '../types';
 
-export const authRequest = (): UserRequest => {
+export const userRequest = (): UserRequest => {
   return {
     type: userTypes.USER_AUTH_REQUEST,
   };
