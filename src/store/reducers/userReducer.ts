@@ -1,4 +1,3 @@
-import { AnyAction } from 'redux';
 import {userTypes} from '../actionTypes';
 import {IUserState, UserActions} from '../types';
 
@@ -10,7 +9,7 @@ const initialState: IUserState = {
   error: null,
 };
 
-const userReducer = (state = initialState, action: UserActions | AnyAction) => {
+const userReducer = (state = initialState, action: UserActions) => {
   switch (action.type) {
     case userTypes.USER_AUTH_REQUEST:
       return {
@@ -18,7 +17,7 @@ const userReducer = (state = initialState, action: UserActions | AnyAction) => {
         loading: true,
       };
     case userTypes.USER_AUTH_SUCCESS:
-      const { login, sublogin, session } = action.payload
+      const {login, sublogin, session} = action.payload;
       return {
         ...state,
         loading: false,
@@ -28,7 +27,7 @@ const userReducer = (state = initialState, action: UserActions | AnyAction) => {
         error: null,
       };
     case userTypes.USER_AUTH_FAILURE:
-      const { error } = action.payload
+      const {error} = action.payload;
       return {
         ...state,
         loading: false,
@@ -36,6 +35,15 @@ const userReducer = (state = initialState, action: UserActions | AnyAction) => {
         sublogin: null,
         sessionKey: null,
         error: error,
+      };
+    case userTypes.USER_LOGOUT:
+      return {
+        ...state,
+        loading: false,
+        login: null,
+        sublogin: null,
+        sessionKey: null,
+        error: null,
       };
     default:
       return {

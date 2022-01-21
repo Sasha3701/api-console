@@ -34,4 +34,12 @@ export type UserFailure = {
   payload: IErrorData;
 };
 
-export type UserActions = UserRequest | UserSuccess | UserFailure;
+export type UserCheck = {
+  type: typeof userTypes.USER_CHECK;
+};
+
+export type UserLogout = {
+  type: typeof userTypes.USER_LOGOUT;
+};
+
+export type UserActions = UserRequest | UserSuccess | UserFailure | UserCheck | UserLogout;

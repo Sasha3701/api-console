@@ -7,6 +7,35 @@ import {UserRequest} from '../types';
 
 const login = (payload: IUser) => sendsay.login(payload);
 
+export function* logoutSaga() {
+  try {
+    yield sendsay.request({
+      action: 'logout',
+    });
+    document.cookie = '';
+  } catch (e) {
+    yield put(
+      userFailure({
+        error: e as IError,
+      })
+    );
+  }
+}
+
+function* checkSaga() {
+  try {
+    yield sendsay.request({
+      action: 'pong',
+    });
+  } catch (e) {
+    yield put(
+      userFailure({
+        error: e as IError,
+      })
+    );
+  }
+}
+
 function* loginSaga(action: UserRequest) {
   try {
     yield call(login, action.payload);
@@ -22,14 +51,18 @@ function* loginSaga(action: UserRequest) {
     document.cookie = '';
     yield put(
       userFailure({
-        error: e as IError
+        error: e as IError,
       })
     );
   }
 }
 
 function* userSaga() {
-  yield all([takeLatest(userTypes.USER_AUTH_REQUEST, loginSaga)]);
+  yield all([
+    takeLatest(userTypes.USER_AUTH_REQUEST, loginSaga),
+    takeLatest(userTypes.USER_CHECK, checkSaga),
+    takeLatest(userTypes.USER_LOGOUT, logoutSaga),
+  ]);
 }
 
 export default userSaga;
