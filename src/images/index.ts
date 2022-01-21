@@ -5,5 +5,6 @@ import {ReactComponent as SortIcon} from './sortIcon.svg';
 import {ReactComponent as NoFullIcon} from './noFullIcon.svg';
 import {ReactComponent as MenuIcon} from './menuIcon.svg';
 import {ReactComponent as Logo} from './logo.svg';
+import {ReactComponent as SmileIcon} from './smileIcon.svg';
 
-export {FullIcon, LogoutIcon, CloseIcon, SortIcon, NoFullIcon, MenuIcon, Logo};
+export {FullIcon, LogoutIcon, CloseIcon, SortIcon, NoFullIcon, MenuIcon, Logo, SmileIcon};

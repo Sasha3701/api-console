@@ -11,6 +11,7 @@ const GlobalStyle = createGlobalStyle`
         --color-gray-1: rgba(0, 0, 0, 0.4);
         --color-black: #0D0D0D;
         --color-error: #CF2C00;
+        --color-error-light: rgba(207, 44, 0, 0.1);
         --color-white: #FFF;
         --color-blue: #45a5ff7a;
         --color-blue-1: #0055FB;

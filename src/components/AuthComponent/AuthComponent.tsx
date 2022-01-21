@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {INPUT_NAME} from '../../const';
+import {INPUT_NAME, PATHS} from '../../const';
 import Main from '../Main/Main';
 import Title from '../Title/Title';
 import {Button, Input} from '../UI';
@@ -9,7 +9,10 @@ import {AuthSchema} from '../../utils/Schemes';
 import {Logo} from '../../images';
 import {useDispatch, useSelector} from 'react-redux';
 import {userRequest} from '../../store/actions/userAction';
-import { RootState } from '../../store/reducers/rootReducer';
+import {RootState} from '../../store/reducers/rootReducer';
+import {useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
+import Notification from '../Notification/Notification';
 
 const Container = styled(Main)`
   width: 100vw;
@@ -45,12 +48,20 @@ const initialState: IUser = {
 const AuthComponent = (): JSX.Element => {
   const dispatch = useDispatch();
   const {loading, error, sessionKey} = useSelector((state: RootState) => state.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (sessionKey) {
+      navigate(PATHS.HOME.path);
+    }
+  }, [navigate, sessionKey]);
 
   return (
     <Container>
       <Logo style={{marginBottom: '20px'}} />
       <Wrapper>
         <Title variant="auth">API-консолька</Title>
+        {error ? <Notification style={{marginTop: '20px'}} error={error} /> : null}
         <Formik
           initialValues={initialState}
           validationSchema={AuthSchema}
@@ -58,7 +69,7 @@ const AuthComponent = (): JSX.Element => {
             dispatch(userRequest(values));
           }}
         >
-          {({handleChange, handleBlur, errors, touched, dirty, isValid}) => (
+          {({handleChange, handleBlur, errors, touched, dirty, isValid, isSubmitting}) => (
             <CustomForm>
               <Input
                 name={INPUT_NAME.LOGIN}
@@ -83,7 +94,7 @@ const AuthComponent = (): JSX.Element => {
                 type="password"
                 label="Пароль"
               />
-              <Button loading={loading} style={{marginTop: '20px'}} type="submit" disabled={!(isValid && dirty)}>
+              <Button loading={loading} style={{marginTop: '20px'}} type="submit" disabled={!(isValid && !isSubmitting)}>
                 Войти
               </Button>
             </CustomForm>
