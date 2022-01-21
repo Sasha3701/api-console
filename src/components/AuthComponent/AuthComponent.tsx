@@ -3,7 +3,7 @@ import {INPUT_NAME, PATHS} from '../../const';
 import Main from '../Main/Main';
 import Title from '../Title/Title';
 import {Button, Input} from '../UI';
-import {Form, Formik, FormikHelpers} from 'formik';
+import {Form, Formik} from 'formik';
 import {IUser} from '../../models';
 import {AuthSchema} from '../../utils/Schemes';
 import {Logo} from '../../images';
@@ -65,7 +65,7 @@ const AuthComponent = (): JSX.Element => {
         <Formik
           initialValues={initialState}
           validationSchema={AuthSchema}
-          onSubmit={(values: IUser, {setSubmitting}: FormikHelpers<IUser>) => {
+          onSubmit={(values: IUser) => {
             dispatch(userRequest(values));
           }}
         >

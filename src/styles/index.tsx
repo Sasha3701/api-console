@@ -17,6 +17,7 @@ const GlobalStyle = createGlobalStyle`
         --color-blue-1: #0055FB;
         --color-gray-2: #999999;
         --color-gray-3: #E5E5E5;
+        --color-gray-4: #F6F6F6;
         --color-grad-1: linear-gradient(180deg, #45A6FF 0%, #0055FB 100%), #C4C4C4;
         --color-grad-2: linear-gradient(0deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)), linear-gradient(180deg, #45A6FF 0%, #0055FB 100%), #C4C4C4;
         --color-grad-3: linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), linear-gradient(180deg, #45A6FF 0%, #0055FB 100%), #C4C4C4;
