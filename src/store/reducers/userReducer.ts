@@ -1,17 +1,16 @@
+import { AnyAction } from 'redux';
 import {userTypes} from '../actionTypes';
 import {IUserState, UserActions} from '../types';
 
 const initialState: IUserState = {
   loading: false,
-  user: {
-    login: null,
-    sublogin: null,
-    password: null,
-  },
+  login: null,
+  sublogin: null,
+  sessionKey: null,
   error: null,
 };
 
-const userReducer = (state = initialState, action: UserActions) => {
+const userReducer = (state = initialState, action: UserActions | AnyAction) => {
   switch (action.type) {
     case userTypes.USER_AUTH_REQUEST:
       return {
@@ -19,22 +18,24 @@ const userReducer = (state = initialState, action: UserActions) => {
         loading: true,
       };
     case userTypes.USER_AUTH_SUCCESS:
+      const { login, sublogin, session } = action.payload
       return {
         ...state,
         loading: false,
-        user: action.payload.user,
+        login: login,
+        sublogin: sublogin,
+        sessionKey: session,
         error: null,
       };
     case userTypes.USER_AUTH_FAILURE:
+      const { error } = action.payload
       return {
         ...state,
         loading: false,
-        user: {
-          login: null,
-          sublogin: null,
-          password: null,
-        },
-        error: action.payload.error,
+        login: null,
+        sublogin: null,
+        sessionKey: null,
+        error: error,
       };
     default:
       return {

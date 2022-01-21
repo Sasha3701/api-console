@@ -1,25 +1,31 @@
 import {all, call, put, takeLatest} from 'redux-saga/effects';
-import {IUser} from '../../models';
+import sendsay from '../../api';
+import {IError, IUser} from '../../models';
 import {userFailure, userSuccess} from '../actions/userAction';
 import {userTypes} from '../actionTypes';
+import {UserRequest} from '../types';
 
-const login = () => {};
+const login = (payload: IUser) => sendsay.login(payload);
 
-function* loginSaga() {
-  // try {
-  //   const response = yield call(login);
-  //   yield put(
-  //     userSuccess({
-  //       user: response.data,
-  //     })
-  //   );
-  // } catch (e) {
-  //   yield put( 
-  //     userFailure({
-  //       error: e.message,
-  //     })
-  //   );
-  // }
+function* loginSaga(action: UserRequest) {
+  try {
+    yield call(login, action.payload);
+    document.cookie = `sendsay_ssesion=${sendsay.session}`;
+    yield put(
+      userSuccess({
+        login: action.payload.login!,
+        sublogin: action.payload.sublogin!,
+        session: sendsay.session,
+      })
+    );
+  } catch (e) {
+    document.cookie = '';
+    yield put(
+      userFailure({
+        error: e as IError
+      })
+    );
+  }
 }
 
 function* userSaga() {

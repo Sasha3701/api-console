@@ -1,5 +1,12 @@
+export type nullableTypes = string | null;
+
 export interface IUser {
-  login: string | null;
-  sublogin: string | null;
-  password: string | null;
+  login: nullableTypes;
+  sublogin: nullableTypes;
+  password: nullableTypes;
+}
+
+export interface IError {
+  id: string;
+  explain: string;
 }

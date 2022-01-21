@@ -7,6 +7,9 @@ import {Form, Formik, FormikHelpers} from 'formik';
 import {IUser} from '../../models';
 import {AuthSchema} from '../../utils/Schemes';
 import {Logo} from '../../images';
+import {useDispatch, useSelector} from 'react-redux';
+import {userRequest} from '../../store/actions/userAction';
+import { RootState } from '../../store/reducers/rootReducer';
 
 const Container = styled(Main)`
   width: 100vw;
@@ -40,6 +43,9 @@ const initialState: IUser = {
 };
 
 const AuthComponent = (): JSX.Element => {
+  const dispatch = useDispatch();
+  const {loading, error, sessionKey} = useSelector((state: RootState) => state.user);
+
   return (
     <Container>
       <Logo style={{marginBottom: '20px'}} />
@@ -49,10 +55,7 @@ const AuthComponent = (): JSX.Element => {
           initialValues={initialState}
           validationSchema={AuthSchema}
           onSubmit={(values: IUser, {setSubmitting}: FormikHelpers<IUser>) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 500);
+            dispatch(userRequest(values));
           }}
         >
           {({handleChange, handleBlur, errors, touched, dirty, isValid}) => (
@@ -80,7 +83,7 @@ const AuthComponent = (): JSX.Element => {
                 type="password"
                 label="Пароль"
               />
-              <Button style={{marginTop: '20px'}} type="submit" disabled={!(isValid && dirty)}>
+              <Button loading={loading} style={{marginTop: '20px'}} type="submit" disabled={!(isValid && dirty)}>
                 Войти
               </Button>
             </CustomForm>
