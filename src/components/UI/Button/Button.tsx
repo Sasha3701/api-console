@@ -44,7 +44,6 @@ const WrapperRight = styled.div`
 `;
 
 const ButtonTransparent = styled.button`
-  padding: 4px;
   background-color: transparent;
   border: none;
   display: flex;

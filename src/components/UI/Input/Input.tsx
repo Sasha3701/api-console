@@ -14,11 +14,11 @@ const CustomInput = styled.input<IInput>`
   width: 100%;
   transition: all 0.3s ease;
   &:hover {
-    border-color: var(--color-gray-1);
+    border-color: ${({error}): string => (error ? 'var(--color-error)' : 'var(--color-gray-1)')};
   }
   &:focus {
-    border-color: var(--color-gray-1);
-    outline: 2px solid var(--color-gray);
+    border-color: ${({error}): string => (error ? 'var(--color-error)' : 'var(--color-gray-1)')};
+    outline: 2px solid ${({error}): string => (error ? 'var(--color-error)' : 'var(--color-gray)')};
   }
 `;
 

@@ -16,6 +16,8 @@ const CustomHeader = styled.header`
   align-items: center;
   padding: 10px 15px;
   background-color: var(--color-gray-4);
+  box-sizing: border-box;
+  height: 50px;
 `;
 
 const EmptyBox = styled.div``;

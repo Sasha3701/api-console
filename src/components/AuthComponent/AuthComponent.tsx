@@ -65,8 +65,9 @@ const AuthComponent = (): JSX.Element => {
         <Formik
           initialValues={initialState}
           validationSchema={AuthSchema}
-          onSubmit={(values: IUser) => {
+          onSubmit={(values: IUser, {setSubmitting}) => {
             dispatch(userRequest(values));
+            setSubmitting(false);
           }}
         >
           {({handleChange, handleBlur, errors, touched, dirty, isValid, isSubmitting}) => (
