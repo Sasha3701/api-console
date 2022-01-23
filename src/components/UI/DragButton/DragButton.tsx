@@ -1,8 +1,10 @@
+import {forwardRef} from 'react';
 import styled from 'styled-components';
 import {MenuIcon} from '../../../images';
+import {IPropsDragButton} from './DragButton.props';
 
 const Button = styled.button`
-  padding: 4px;
+  padding: 6px;
   background-color: transparent;
   border: none;
   width: max-content;
@@ -14,17 +16,20 @@ const Button = styled.button`
   &:hover svg {
     fill: var(--color-gray-1);
   }
+  &:focus {
+    outline: none;
+  }
   &:active {
     cursor: col-resize;
   }
 `;
 
-const DragButton = (): JSX.Element => {
+const DragButton = forwardRef<HTMLButtonElement, IPropsDragButton>((props, ref): JSX.Element => {
   return (
-    <Button>
+    <Button ref={ref} {...props}>
       <MenuIcon />
     </Button>
   );
-};
+});
 
 export default DragButton;

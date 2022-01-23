@@ -5,3 +5,7 @@ export enum userTypes {
   USER_CHECK = 'USER_CHECK',
   USER_LOGOUT = 'USER_LOGOUT',
 }
+
+export enum consoleTypes {
+  CONSOLE_SIZE = 'CONSOLE_SIZE',
+}

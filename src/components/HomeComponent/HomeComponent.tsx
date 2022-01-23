@@ -1,8 +1,11 @@
 import styled from 'styled-components';
+import Console from '../Console/Console';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
-import {Textarea, DragButton} from '../UI';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../store/reducers/rootReducer';
+import {MIN_WIDTH_TEXTAREA} from '../../const';
 
 const Wrapper = styled.div`
   display: grid;
@@ -10,29 +13,15 @@ const Wrapper = styled.div`
   grid-template-rows: 50px 1fr 70px;
 `;
 
-const WrapperDragButton = styled.div`
-  justify-self: center;
-  align-self: center;
-`;
-
-const CustomMain = styled(Main)`
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  padding: 10px 15px;
-  box-sizing: border-box;
-`;
-
 const HomeComponent = () => {
+  const {widthIn} = useSelector((state: RootState) => state.console);
+
   return (
     <Wrapper>
       <Header />
-      <CustomMain>
-        <Textarea label="Запрос:" name="request" />
-        <WrapperDragButton>
-          <DragButton />
-        </WrapperDragButton>
-        <Textarea label="Ответ:" name="response" variant="out" />
-      </CustomMain>
+      <Main>
+        <Console minWidth={MIN_WIDTH_TEXTAREA} widthIn={widthIn} />
+      </Main>
       <Footer />
     </Wrapper>
   );

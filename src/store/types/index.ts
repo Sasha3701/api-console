@@ -1,11 +1,12 @@
 import {IError, IUser, nullableTypes} from '../../models';
-import {userTypes} from '../actionTypes';
+import {consoleTypes, userTypes} from '../actionTypes';
 
+// User
 export interface IUserState {
   loading: boolean;
-  login: nullableTypes;
-  sublogin: nullableTypes;
-  sessionKey: nullableTypes;
+  login: nullableTypes<string>;
+  sublogin: nullableTypes<string>;
+  sessionKey: nullableTypes<string>;
   error: IError | null;
 }
 
@@ -43,3 +44,17 @@ export type UserLogout = {
 };
 
 export type UserActions = UserRequest | UserSuccess | UserFailure | UserCheck | UserLogout;
+
+// Console
+
+export interface IConsoleState {
+  value: nullableTypes<number>;
+  widthIn: nullableTypes<number>;
+}
+
+export interface ConsoleSize {
+  type: typeof consoleTypes.CONSOLE_SIZE;
+  payload: number;
+}
+
+export type ConsoleActions = ConsoleSize;

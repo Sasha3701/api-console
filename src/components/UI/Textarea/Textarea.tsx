@@ -4,8 +4,6 @@ import {ILabel} from '../Input/Input.props';
 import {IPropsTetxarea, ITextarea} from './Textarea.props';
 
 const Wrapper = styled.div`
-  min-height: 400px;
-  min-width: 400px;
   box-sizing: border-box;
 `;
 

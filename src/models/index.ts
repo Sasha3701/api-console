@@ -1,9 +1,9 @@
-export type nullableTypes = string | null;
+export type nullableTypes<T> = T | null;
 
 export interface IUser {
-  login: nullableTypes;
-  sublogin: nullableTypes;
-  password: nullableTypes;
+  login: nullableTypes<string>;
+  sublogin: nullableTypes<string>;
+  password: nullableTypes<string>;
 }
 
 export interface IError {
