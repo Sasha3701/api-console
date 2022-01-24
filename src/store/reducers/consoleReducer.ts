@@ -23,11 +23,11 @@ const consoleReducer = (state = initialState, action: ConsoleActions) => {
         loadingConsole: false,
       };
     case consoleTypes.CONSOLE_FAILURE:
-      const {error} = action.payload;
       return {
         ...state,
         loadingConsole: false,
-        errorResponse: !!error,
+        errorResponse: true,
+        valueResponse: JSON.stringify(action.payload.error, null, 2),
       };
     case consoleTypes.CONSOLE_SIZE:
       return {
