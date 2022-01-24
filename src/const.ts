@@ -1,4 +1,12 @@
-export const INPUT_NAME = {
-  PASSWORD: 'password',
-  OPTIONAL: 'optional',
+export const PATHS = {
+  HOME: {
+    path: '/',
+  },
+  AUTH: {
+    path: '/auth',
+  },
+};
+
+export const REGX = {
+  AUTH: /[a-z]+/i,
 };

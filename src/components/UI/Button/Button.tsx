@@ -49,7 +49,7 @@ const ButtonTransparent = styled.button`
   border: none;
   display: flex;
   justify-content: center;
-  align-content: center;
+  align-items: center;
   font-size: 16px;
   transition: all 0.3s ease;
   box-sizing: border-box;
