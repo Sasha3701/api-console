@@ -1,5 +1,6 @@
 import {forwardRef, memo} from 'react';
 import styled from 'styled-components';
+import {CONTENT} from '../../content';
 import {SmileIcon} from '../../images';
 import {IPropsNotification} from './Notification.props';
 
@@ -33,7 +34,7 @@ const Notification = forwardRef<HTMLDivElement, IPropsNotification>(({error, ...
   return (
     <Container ref={ref} {...props}>
       <Smile />
-      <Title>Вход не вышел</Title>
+      <Title>{CONTENT.NOTIFICATION.TITLE}</Title>
       <Description>{`{id: "${error.id}", explain: "${error.explain}"}`}</Description>
     </Container>
   );

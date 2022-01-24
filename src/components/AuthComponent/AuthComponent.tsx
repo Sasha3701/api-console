@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {INPUT_NAME, PATHS} from '../../const';
+import {PATHS} from '../../const';
 import Main from '../Main/Main';
 import Title from '../Title/Title';
 import {Button, Input} from '../UI';
@@ -13,6 +13,7 @@ import {RootState} from '../../store/reducers/rootReducer';
 import {useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Notification from '../Notification/Notification';
+import {CONTENT} from '../../content';
 
 const Container = styled(Main)`
   width: 100vw;
@@ -60,7 +61,7 @@ const AuthComponent = (): JSX.Element => {
     <Container>
       <Logo style={{marginBottom: '20px'}} />
       <Wrapper>
-        <Title variant="auth">API-консолька</Title>
+        <Title variant="auth">{CONTENT.AUTH.TITLE}</Title>
         {error ? <Notification style={{marginTop: '20px'}} error={error} /> : null}
         <Formik
           initialValues={initialState}
@@ -70,33 +71,33 @@ const AuthComponent = (): JSX.Element => {
             setSubmitting(false);
           }}
         >
-          {({handleChange, handleBlur, errors, touched, dirty, isValid, isSubmitting}) => (
+          {({handleChange, handleBlur, errors, touched, isValid, isSubmitting}) => (
             <CustomForm>
               <Input
-                name={INPUT_NAME.LOGIN}
+                name={CONTENT.AUTH.INPUTS.LOGIN.NAME}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 error={touched.login && !!errors.login}
-                label="Логин"
+                label={CONTENT.AUTH.INPUTS.LOGIN.LABEL}
               />
               <Input
-                name={INPUT_NAME.SUBLOGIN}
+                name={CONTENT.AUTH.INPUTS.SUBLOGIN.NAME}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 error={touched.sublogin && !!errors.sublogin}
-                label="Сублогин"
+                label={CONTENT.AUTH.INPUTS.SUBLOGIN.LABEL}
                 optional={true}
               />
               <Input
-                name={INPUT_NAME.PASSWORD}
+                name={CONTENT.AUTH.INPUTS.PASSWORD.NAME}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 error={touched.password && !!errors.password}
                 type="password"
-                label="Пароль"
+                label={CONTENT.AUTH.INPUTS.PASSWORD.LABEL}
               />
               <Button loading={loading} style={{marginTop: '20px'}} type="submit" disabled={!(isValid && !isSubmitting)}>
-                Войти
+                {CONTENT.AUTH.BUTTON}
               </Button>
             </CustomForm>
           )}
