@@ -21,4 +21,7 @@ export const CONTENT = {
     TITLE: 'API-консолька',
     BUTTON: 'Выйти',
   },
+  NOTIFICATION: {
+    TITLE: 'Вход не вышел',
+  },
 };
