@@ -9,6 +9,7 @@ import {useCallback, useEffect, useState} from 'react';
 import {userLogout} from '../../store/actions/userAction';
 import {useNavigate} from 'react-router-dom';
 import {PATHS} from '../../const';
+import {CONTENT} from '../../content';
 
 const CustomHeader = styled.header`
   display: grid;
@@ -49,11 +50,11 @@ const Header = (): JSX.Element => {
   return (
     <CustomHeader>
       <Logo style={{marginRight: '20px'}} />
-      <Title variant="home">API-консолька</Title>
+      <Title variant="home">{CONTENT.HEADER.TITLE}</Title>
       <EmptyBox></EmptyBox>
       <Account style={{marginRight: '30px'}} login={login} sublogin={sublogin} />
       <Button onClick={logout} style={{marginRight: '30px'}} theme="transparent" iconRight={<LogoutIcon />}>
-        Выйти
+        {CONTENT.HEADER.TITLE}
       </Button>
       <Button onClick={handleChangeScreen} theme="transparent">
         {fullscreen ? <NoFullIcon /> : <FullIcon />}
