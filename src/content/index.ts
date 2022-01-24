@@ -38,6 +38,9 @@ export const CONTENT = {
         LABEL: 'Ответ:',
       },
     },
+    DROPDOWN: {
+      ACTIONS: ['Выполнить', 'Скопировать', 'Удалить'],
+    },
   },
   NOTIFICATION: {
     TITLE: 'Вход не вышел',

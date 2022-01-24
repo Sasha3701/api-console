@@ -18,6 +18,7 @@ const Container = styled.div`
 const WrapperRequests = styled.div`
   padding: 10px 15px;
   border-right: 1px solid var(--color-gray);
+  display: flex;
 `;
 
 const History = (): JSX.Element => {
