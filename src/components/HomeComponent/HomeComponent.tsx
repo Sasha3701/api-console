@@ -4,6 +4,10 @@ import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import {MIN_WIDTH_TEXTAREA} from '../../const';
+import {ChangeEvent, useCallback, useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {isJsonString} from '../../utils';
+import {consoleChangeValue} from '../../store/actions/consoleAction';
 
 const Wrapper = styled.div`
   display: grid;
@@ -12,13 +16,29 @@ const Wrapper = styled.div`
 `;
 
 const HomeComponent = () => {
+  const [error, setError] = useState<boolean>(false);
+  const dispatch = useDispatch();
+
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLTextAreaElement>) => {
+      const valueTextarea = e.target.value;
+      if (isJsonString(valueTextarea)) {
+        setError(false);
+      } else {
+        setError(true);
+      }
+      dispatch(consoleChangeValue(valueTextarea));
+    },
+    [dispatch]
+  );
+
   return (
     <Wrapper>
       <Header />
       <Main>
-        <Console minWidth={MIN_WIDTH_TEXTAREA} />
+        <Console errorInput={error} handleChange={handleChange} minWidth={MIN_WIDTH_TEXTAREA} />
       </Main>
-      <Footer />
+      <Footer error={error} />
     </Wrapper>
   );
 };

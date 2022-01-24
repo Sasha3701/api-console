@@ -1,7 +1,6 @@
 import {all, call, put, takeLatest} from 'redux-saga/effects';
 import sendsay from '../../api';
-import {IError} from '../../models';
-import {getCookie} from '../../utils';
+import {formatJson, getCookie} from '../../utils';
 import {consoleFailure, consoleSuccess} from '../actions/consoleAction';
 import {consoleTypes} from '../actionTypes';
 import {ConsoleRequest} from '../types';
@@ -18,11 +17,7 @@ function* requestConsoleSaga(action: ConsoleRequest) {
     document.cookie = `sendsay_ssesion=${sendsay.session}`;
     yield put(consoleSuccess({...sendsay.response}));
   } catch (e) {
-    yield put(
-      consoleFailure({
-        error: e as IError,
-      })
-    );
+    yield put(consoleFailure(formatJson(e as Record<string, string>)));
   }
 }
 

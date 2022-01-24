@@ -21,6 +21,24 @@ export const CONTENT = {
     TITLE: 'API-консолька',
     BUTTON: 'Выйти',
   },
+  FOOTER: {
+    BUTTON: {
+      SEND: 'Отправить',
+      FORMAT: 'Форматировать',
+    },
+  },
+  CONSOLE: {
+    TEXTAREA: {
+      IN: {
+        NAME: 'request',
+        LABEL: 'Запрос:',
+      },
+      OUT: {
+        NAME: 'response',
+        LABEL: 'Ответ:',
+      },
+    },
+  },
   NOTIFICATION: {
     TITLE: 'Вход не вышел',
   },

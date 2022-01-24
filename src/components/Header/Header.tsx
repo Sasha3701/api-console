@@ -56,7 +56,7 @@ const Header = (): JSX.Element => {
       <EmptyBox></EmptyBox>
       <Account style={{marginRight: '30px'}} login={login} sublogin={sublogin} />
       <Button onClick={logout} style={{marginRight: '30px'}} theme="transparent" iconRight={<LogoutIcon />}>
-        {CONTENT.HEADER.TITLE}
+        {CONTENT.HEADER.BUTTON}
       </Button>
       <Button onClick={handleChangeScreen} theme="transparent">
         {fullscreen ? <NoFullIcon /> : <FullIcon />}

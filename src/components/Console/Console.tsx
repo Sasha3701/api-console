@@ -1,11 +1,11 @@
-import {ChangeEvent, useCallback, useRef, useState} from 'react';
+import {useCallback, useRef, useState} from 'react';
 import styled from 'styled-components';
 import {Textarea, DragButton} from '../UI';
 import {useDispatch, useSelector} from 'react-redux';
 import {IPropsConsole, IWrapperConsole} from './Console.props';
-import {consoleChangeSize, consoleChangeValue} from '../../store/actions/consoleAction';
-import {isJsonString} from '../../utils';
-import { RootState } from '../../store/reducers/rootReducer';
+import {consoleChangeSize} from '../../store/actions/consoleAction';
+import {RootState} from '../../store/reducers/rootReducer';
+import {CONTENT} from '../../content';
 
 const WrapperConsole = styled.div<IWrapperConsole>`
   display: grid;
@@ -20,14 +20,13 @@ const WrapperDragButton = styled.div`
   align-self: center;
 `;
 
-const Console = ({padSide = 15, minWidth = 100}: IPropsConsole): JSX.Element => {
+const Console = ({padSide = 15, minWidth = 100, errorInput, handleChange}: IPropsConsole): JSX.Element => {
   const dispatch = useDispatch();
-  const {widthIn, value, errorResponse, valueResponse, loadingConsole} = useSelector((state: RootState) => state.console)
+  const {widthIn, value, errorResponse, valueResponse, loadingConsole} = useSelector((state: RootState) => state.console);
   const refIn = useRef<HTMLTextAreaElement>(null);
   const refOut = useRef<HTMLTextAreaElement>(null);
   const refDrag = useRef<HTMLDivElement>(null);
   const [isDrag, setIsDrag] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
 
   const handleChangeDrag = useCallback(() => {
     setIsDrag((prevState) => !prevState);
@@ -55,23 +54,27 @@ const Console = ({padSide = 15, minWidth = 100}: IPropsConsole): JSX.Element => 
     [dispatch, isDrag, minWidth, padSide]
   );
 
-  const customHandleChange = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
-    const valueTextarea = e.target.value;
-    if (isJsonString(valueTextarea)) {
-      setError(false);
-    } else {
-      setError(true);
-    }
-    dispatch(consoleChangeValue(valueTextarea));
-  }, [dispatch]);
-
   return (
     <WrapperConsole padSide={padSide} widthIn={widthIn}>
-      <Textarea error={error} label="Запрос:" name="request" ref={refIn} value={value} onChange={customHandleChange} />
+      <Textarea
+        error={errorInput}
+        label={CONTENT.CONSOLE.TEXTAREA.IN.LABEL}
+        name={CONTENT.CONSOLE.TEXTAREA.IN.NAME}
+        ref={refIn}
+        value={value}
+        onChange={handleChange}
+      />
       <WrapperDragButton ref={refDrag}>
         <DragButton loading={loadingConsole} onMouseDown={handleChangeDrag} onMouseUp={handleChangeDrag} onMouseMove={handleDrag} />
       </WrapperDragButton>
-      <Textarea error={errorResponse} label="Ответ:" name="response" variant="out" ref={refOut} value={valueResponse} />
+      <Textarea
+        error={errorResponse}
+        label={CONTENT.CONSOLE.TEXTAREA.OUT.LABEL}
+        name={CONTENT.CONSOLE.TEXTAREA.OUT.NAME}
+        variant="out"
+        ref={refOut}
+        value={valueResponse}
+      />
     </WrapperConsole>
   );
 };

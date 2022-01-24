@@ -65,19 +65,24 @@ export interface ConsoleChange {
   payload: string;
 }
 
+export interface ConsoleFormat {
+  type: typeof consoleTypes.CONSOLE_FORMAT;
+  payload: string;
+}
+
 export interface ConsoleRequest {
   type: typeof consoleTypes.CONSOLE_REQUEST;
-  payload: any
+  payload: string;
 }
 
 export type ConsoleSuccess = {
   type: typeof consoleTypes.CONSOLE_SUCCESS;
-  payload: any
+  payload: string;
 };
 
 export type ConsoleFailure = {
   type: typeof consoleTypes.CONSOLE_FAILURE;
-  payload: any
+  payload: string;
 };
 
-export type ConsoleActions = ConsoleSize | ConsoleChange | ConsoleRequest | ConsoleSuccess | ConsoleFailure;
+export type ConsoleActions = ConsoleSize | ConsoleChange | ConsoleRequest | ConsoleSuccess | ConsoleFailure | ConsoleFormat;

@@ -1,3 +1,4 @@
+import { formatJson } from '../../utils';
 import {consoleTypes} from '../actionTypes';
 import {ConsoleActions, IConsoleState} from '../types';
 
@@ -19,7 +20,7 @@ const consoleReducer = (state = initialState, action: ConsoleActions) => {
     case consoleTypes.CONSOLE_SUCCESS:
       return {
         ...state,
-        valueResponse: JSON.stringify(action.payload, null, 2),
+        valueResponse: formatJson(action.payload),
         loadingConsole: false,
       };
     case consoleTypes.CONSOLE_FAILURE:
@@ -27,7 +28,12 @@ const consoleReducer = (state = initialState, action: ConsoleActions) => {
         ...state,
         loadingConsole: false,
         errorResponse: true,
-        valueResponse: JSON.stringify(action.payload.error, null, 2),
+        valueResponse: action.payload,
+      };
+    case consoleTypes.CONSOLE_FORMAT:
+      return {
+        ...state,
+        value: formatJson(action.payload)
       };
     case consoleTypes.CONSOLE_SIZE:
       return {
