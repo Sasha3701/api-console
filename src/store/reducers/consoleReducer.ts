@@ -1,6 +1,7 @@
-import { formatJson } from '../../utils';
+import {formatJson} from '../../utils';
 import {consoleTypes} from '../actionTypes';
 import {ConsoleActions, IConsoleState} from '../types';
+import {addHistory} from '../../services';
 
 const initialState: IConsoleState = {
   value: '',
@@ -8,6 +9,7 @@ const initialState: IConsoleState = {
   widthIn: null,
   loadingConsole: false,
   errorResponse: false,
+  history: [],
 };
 
 const consoleReducer = (state = initialState, action: ConsoleActions) => {
@@ -18,22 +20,26 @@ const consoleReducer = (state = initialState, action: ConsoleActions) => {
         loadingConsole: true,
       };
     case consoleTypes.CONSOLE_SUCCESS:
+      const result = addHistory(state, true);
       return {
         ...state,
         valueResponse: action.payload,
         loadingConsole: false,
+        history: result,
       };
     case consoleTypes.CONSOLE_FAILURE:
+      const newHistory = addHistory(state, false);
       return {
         ...state,
         loadingConsole: false,
         errorResponse: true,
         valueResponse: action.payload,
+        history: newHistory,
       };
     case consoleTypes.CONSOLE_FORMAT:
       return {
         ...state,
-        value: formatJson(action.payload)
+        value: formatJson(action.payload),
       };
     case consoleTypes.CONSOLE_SIZE:
       return {
@@ -44,6 +50,11 @@ const consoleReducer = (state = initialState, action: ConsoleActions) => {
       return {
         ...state,
         value: action.payload,
+      };
+    case consoleTypes.CONSOLE_HISTORY_CLEAR:
+      return {
+        ...state,
+        history: [],
       };
     default:
       return {

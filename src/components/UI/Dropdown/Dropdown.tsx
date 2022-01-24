@@ -1,8 +1,9 @@
 import React, {useState, useRef, useCallback} from 'react';
 import {usePopper} from 'react-popper';
 import styled from 'styled-components';
-import {IDropdownBody, IPropsDropdown, IStatusRequest} from './Dropdown.props';
+import {IDropdownBody, IStatusRequest} from './Dropdown.props';
 import {MenuIcon} from '../../../images';
+import { IHistory } from '../../../models';
 
 const DropdownMain = styled.div`
   display: flex;
@@ -73,7 +74,7 @@ const DropdownItem = styled.li`
 
 
 // TODO
-const Dropdown = ({status, title, id, body}: IPropsDropdown): JSX.Element => {
+const Dropdown = ({status, title, id, request}: IHistory): JSX.Element => {
   const [visible, setVisibility] = useState<boolean>(false);
   const [mouseOnBody, setMouseOnBody] = useState<boolean>(false);
 

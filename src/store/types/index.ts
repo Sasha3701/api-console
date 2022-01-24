@@ -1,4 +1,4 @@
-import {IError, IUser, nullableTypes} from '../../models';
+import {IError, IHistory, IUser, nullableTypes} from '../../models';
 import {consoleTypes, userTypes} from '../actionTypes';
 
 // User
@@ -53,6 +53,7 @@ export interface IConsoleState {
   widthIn: nullableTypes<number>;
   loadingConsole: boolean;
   errorResponse: boolean;
+  history: IHistory[]
 }
 
 export interface ConsoleSize {
@@ -85,4 +86,8 @@ export type ConsoleFailure = {
   payload: string;
 };
 
-export type ConsoleActions = ConsoleSize | ConsoleChange | ConsoleRequest | ConsoleSuccess | ConsoleFailure | ConsoleFormat;
+export type ConsoleHistoryClear = {
+  type: typeof consoleTypes.CONSOLE_HISTORY_CLEAR;
+};
+
+export type ConsoleActions = ConsoleSize | ConsoleChange | ConsoleRequest | ConsoleSuccess | ConsoleFailure | ConsoleFormat | ConsoleHistoryClear;

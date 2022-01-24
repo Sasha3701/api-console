@@ -1,6 +1,10 @@
+import {useCallback} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import styled from 'styled-components';
 import {CloseIcon} from '../../images';
-import {Button} from '../UI';
+import {consoleHistoryClear} from '../../store/actions/consoleAction';
+import {RootState} from '../../store/reducers/rootReducer';
+import {Button, Dropdown} from '../UI';
 
 const Container = styled.div`
   display: grid;
@@ -17,12 +21,27 @@ const WrapperRequests = styled.div`
 `;
 
 const History = (): JSX.Element => {
+  const {history} = useSelector((state: RootState) => state.console);
+  const dispatch = useDispatch();
+
+  const handleClearHistory = useCallback(() => {
+    dispatch(consoleHistoryClear());
+  }, [dispatch]);
+
   return (
     <Container>
-      <WrapperRequests></WrapperRequests>
-      <Button style={{margin: '15px'}} theme="transparent">
-        <CloseIcon />
-      </Button>
+      {history.length !== 0 ? (
+        <>
+          <WrapperRequests>
+            {history.map(({title, id, request, status}) => (
+              <Dropdown key={id} id={id} title={title} request={request} status={status} />
+            ))}
+          </WrapperRequests>
+          <Button onClick={handleClearHistory} style={{margin: '15px'}} theme="transparent">
+            <CloseIcon />
+          </Button>
+        </>
+      ) : null}
     </Container>
   );
 };

@@ -12,8 +12,8 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  user: persistReducer(persistConfig, userReducer),
   console: persistReducer(persistConfig, consoleReducer),
+  user: persistReducer(persistConfig, userReducer),
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

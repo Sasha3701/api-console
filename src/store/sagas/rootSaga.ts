@@ -1,5 +1,5 @@
 import {all, fork} from 'redux-saga/effects';
-import consoleSaga from './consoleSage';
+import consoleSaga from './consoleSaga';
 import userSaga from './userSaga';
 
 export function* rootSaga() {

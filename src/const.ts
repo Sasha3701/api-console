@@ -12,3 +12,5 @@ export const REGX = {
 };
 
 export const MIN_WIDTH_TEXTAREA = 400;
+
+export const MAX_HISTORY = 15;
