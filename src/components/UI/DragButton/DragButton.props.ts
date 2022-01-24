@@ -1,3 +1,5 @@
 import {ComponentPropsWithoutRef} from 'react';
 
-export interface IPropsDragButton extends ComponentPropsWithoutRef<'button'> {}
+export interface IPropsDragButton extends ComponentPropsWithoutRef<'button'> {
+  loading: boolean;
+}

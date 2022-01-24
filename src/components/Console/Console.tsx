@@ -1,12 +1,13 @@
 import {ChangeEvent, useCallback, useRef, useState} from 'react';
 import styled from 'styled-components';
 import {Textarea, DragButton} from '../UI';
-import {useDispatch} from 'react-redux';
-import {IPropsConsole} from './Console.props';
+import {useDispatch, useSelector} from 'react-redux';
+import {IPropsConsole, IWrapperConsole} from './Console.props';
 import {consoleChangeSize, consoleChangeValue} from '../../store/actions/consoleAction';
 import {isJsonString} from '../../utils';
+import { RootState } from '../../store/reducers/rootReducer';
 
-const WrapperConsole = styled.div<IPropsConsole>`
+const WrapperConsole = styled.div<IWrapperConsole>`
   display: grid;
   grid-template-columns: ${({widthIn}): string => `${widthIn === null ? '1fr' : widthIn + 'px'} auto 1fr`};
   padding: ${({padSide}): string => `10px ${padSide}px`};
@@ -19,8 +20,9 @@ const WrapperDragButton = styled.div`
   align-self: center;
 `;
 
-const Console = ({padSide = 15, minWidth = 100, widthIn = null, valueResponse, errorResponse, loadingConsole, value}: IPropsConsole): JSX.Element => {
+const Console = ({padSide = 15, minWidth = 100}: IPropsConsole): JSX.Element => {
   const dispatch = useDispatch();
+  const {widthIn, value, errorResponse, valueResponse, loadingConsole} = useSelector((state: RootState) => state.console)
   const refIn = useRef<HTMLTextAreaElement>(null);
   const refOut = useRef<HTMLTextAreaElement>(null);
   const refDrag = useRef<HTMLDivElement>(null);
@@ -67,7 +69,7 @@ const Console = ({padSide = 15, minWidth = 100, widthIn = null, valueResponse, e
     <WrapperConsole padSide={padSide} widthIn={widthIn}>
       <Textarea error={error} label="Запрос:" name="request" ref={refIn} value={value} onChange={customHandleChange} />
       <WrapperDragButton ref={refDrag}>
-        <DragButton onMouseDown={handleChangeDrag} onMouseUp={handleChangeDrag} onMouseMove={handleDrag} />
+        <DragButton loading={loadingConsole} onMouseDown={handleChangeDrag} onMouseUp={handleChangeDrag} onMouseMove={handleDrag} />
       </WrapperDragButton>
       <Textarea error={errorResponse} label="Ответ:" name="response" variant="out" ref={refOut} value={valueResponse} />
     </WrapperConsole>

@@ -1,6 +1,7 @@
 import {forwardRef} from 'react';
 import styled from 'styled-components';
 import {MenuIcon} from '../../../images';
+import Loader from '../../Loader/Loader';
 import {IPropsDragButton} from './DragButton.props';
 
 const Button = styled.button`
@@ -24,10 +25,10 @@ const Button = styled.button`
   }
 `;
 
-const DragButton = forwardRef<HTMLButtonElement, IPropsDragButton>((props, ref): JSX.Element => {
+const DragButton = forwardRef<HTMLButtonElement, IPropsDragButton>(({loading, disabled, ...props}, ref): JSX.Element => {
   return (
-    <Button ref={ref} {...props}>
-      <MenuIcon />
+    <Button ref={ref} disabled={disabled || loading} {...props}>
+      {loading ? <Loader /> : <MenuIcon />}
     </Button>
   );
 });
