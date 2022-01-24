@@ -1,23 +1,27 @@
 import {all, call, put, takeLatest} from 'redux-saga/effects';
 import sendsay from '../../api';
-import {formatJson, getCookie} from '../../utils';
+import {formatJson, getCookie, jsonFromStr} from '../../utils';
 import {consoleFailure, consoleSuccess} from '../actions/consoleAction';
 import {consoleTypes} from '../actionTypes';
 import {ConsoleRequest} from '../types';
 
-const requestConsole = (payload: string) =>
-  sendsay.request({
+const requestConsole = (payload: string) => {
+  const request = jsonFromStr(payload) as Record<string, any>;
+
+  return sendsay.request({
     session: getCookie('sendsay_ssesion'),
-    ...JSON.parse(payload),
+    ...request,
   });
+};
 
 function* requestConsoleSaga(action: ConsoleRequest) {
   try {
-    yield call(requestConsole, action.payload);
-    document.cookie = `sendsay_ssesion=${sendsay.session}`;
-    yield put(consoleSuccess({...sendsay.response}));
+    const response: Generator = yield call(requestConsole, action.payload);
+    const result: string = formatJson(response);
+    yield put(consoleSuccess(result));
   } catch (e) {
-    yield put(consoleFailure(formatJson(e as Record<string, string>)));
+    const result: string = formatJson(e as Record<string, any>);
+    yield put(consoleFailure(result));
   }
 }
 

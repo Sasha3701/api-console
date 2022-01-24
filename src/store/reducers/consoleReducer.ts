@@ -20,7 +20,7 @@ const consoleReducer = (state = initialState, action: ConsoleActions) => {
     case consoleTypes.CONSOLE_SUCCESS:
       return {
         ...state,
-        valueResponse: formatJson(action.payload),
+        valueResponse: action.payload,
         loadingConsole: false,
       };
     case consoleTypes.CONSOLE_FAILURE:

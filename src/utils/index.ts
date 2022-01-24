@@ -14,6 +14,10 @@ export const formatJson = (data: unknown): string => {
   return JSON.stringify(data as object, null, 2);
 };
 
+export const jsonFromStr = (str: string): unknown => {
+  return JSON.parse(str);
+};
+
 export const getCookie = (name: string) => {
   let matches = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'));
   return matches ? decodeURIComponent(matches[1]) : undefined;
