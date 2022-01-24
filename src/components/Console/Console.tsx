@@ -12,7 +12,7 @@ const WrapperConsole = styled.div<IWrapperConsole>`
   grid-template-columns: ${({widthIn}): string => `${widthIn === null ? '1fr' : widthIn + 'px'} auto 1fr`};
   padding: ${({padSide}): string => `10px ${padSide}px`};
   box-sizing: border-box;
-  height: 100%;
+  height: calc(100% - 50px);
 `;
 
 const WrapperDragButton = styled.div`

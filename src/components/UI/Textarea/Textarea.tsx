@@ -5,6 +5,7 @@ import {IPropsTetxarea, ITextarea} from './Textarea.props';
 
 const Wrapper = styled.div`
   box-sizing: border-box;
+  height: 100%;
 `;
 
 const CustomLabel = styled.label<ILabel>`
@@ -21,7 +22,7 @@ const CustomTextarea = styled.textarea<ITextarea>`
   padding: 10px;
   font-size: 14px;
   width: 100%;
-  height: 97%;
+  height: calc(100% - 16px);
   box-sizing: border-box;
   resize: none;
   &:hover {

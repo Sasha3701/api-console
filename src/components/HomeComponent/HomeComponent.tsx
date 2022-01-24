@@ -3,6 +3,7 @@ import Console from '../Console/Console';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
+import History from '../History/History';
 import {MIN_WIDTH_TEXTAREA} from '../../const';
 import {ChangeEvent, useCallback, useState} from 'react';
 import {useDispatch} from 'react-redux';
@@ -36,6 +37,7 @@ const HomeComponent = () => {
     <Wrapper>
       <Header />
       <Main>
+        <History />
         <Console errorInput={error} handleChange={handleChange} minWidth={MIN_WIDTH_TEXTAREA} />
       </Main>
       <Footer error={error} />
