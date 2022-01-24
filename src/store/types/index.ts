@@ -48,8 +48,11 @@ export type UserActions = UserRequest | UserSuccess | UserFailure | UserCheck | 
 // Console
 
 export interface IConsoleState {
-  value: nullableTypes<number>;
+  value: string;
+  valueResponse: string;
   widthIn: nullableTypes<number>;
+  loadingConsole: boolean;
+  errorResponse: boolean;
 }
 
 export interface ConsoleSize {
@@ -57,4 +60,24 @@ export interface ConsoleSize {
   payload: number;
 }
 
-export type ConsoleActions = ConsoleSize;
+export interface ConsoleChange {
+  type: typeof consoleTypes.CONSOLE_CHANGE;
+  payload: string;
+}
+
+export interface ConsoleRequest {
+  type: typeof consoleTypes.CONSOLE_REQUEST;
+  payload: any
+}
+
+export type ConsoleSuccess = {
+  type: typeof consoleTypes.CONSOLE_SUCCESS;
+  payload: any
+};
+
+export type ConsoleFailure = {
+  type: typeof consoleTypes.CONSOLE_FAILURE;
+  payload: any
+};
+
+export type ConsoleActions = ConsoleSize | ConsoleChange | ConsoleRequest | ConsoleSuccess | ConsoleFailure;

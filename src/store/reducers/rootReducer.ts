@@ -8,7 +8,7 @@ import storage from 'redux-persist/lib/storage';
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['error', 'loading', 'value'],
+  blacklist: ['error', 'loading', 'value', 'valueResponse', 'errorResponse', 'loadingConsole'],
 };
 
 const rootReducer = combineReducers({

@@ -1,9 +1,10 @@
-import {useCallback, useRef, useState} from 'react';
+import {ChangeEvent, useCallback, useRef, useState} from 'react';
 import styled from 'styled-components';
 import {Textarea, DragButton} from '../UI';
 import {useDispatch} from 'react-redux';
 import {IPropsConsole} from './Console.props';
-import {consoleChangeSize} from '../../store/actions/consoleAction';
+import {consoleChangeSize, consoleChangeValue} from '../../store/actions/consoleAction';
+import {isJsonString} from '../../utils';
 
 const WrapperConsole = styled.div<IPropsConsole>`
   display: grid;
@@ -18,43 +19,57 @@ const WrapperDragButton = styled.div`
   align-self: center;
 `;
 
-const Console = ({padSide = 15, widthIn = null, minWidth = 100}: IPropsConsole): JSX.Element => {
+const Console = ({padSide = 15, minWidth = 100, widthIn = null, valueResponse, errorResponse, loadingConsole, value}: IPropsConsole): JSX.Element => {
   const dispatch = useDispatch();
   const refIn = useRef<HTMLTextAreaElement>(null);
   const refOut = useRef<HTMLTextAreaElement>(null);
   const refDrag = useRef<HTMLDivElement>(null);
   const [isDrag, setIsDrag] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
 
   const handleChangeDrag = useCallback(() => {
     setIsDrag((prevState) => !prevState);
   }, []);
 
-  const handleDrag = useCallback((e) => {
-    if (!isDrag) {
-      return;
+  const handleDrag = useCallback(
+    (e) => {
+      if (!isDrag) {
+        return;
+      }
+      const widthDragButton = refDrag.current?.offsetWidth! / 2;
+      const posXCursor = e.pageX - widthDragButton;
+      const posXInput = refIn.current?.offsetWidth!;
+      const posXOutput = refOut.current?.offsetWidth!;
+      const widthWindow = document.documentElement.clientWidth;
+      if (
+        (posXInput <= minWidth || posXOutput <= minWidth) &&
+        (posXCursor <= minWidth + widthDragButton || widthWindow - posXCursor <= minWidth + widthDragButton + padSide * 2)
+      ) {
+        return;
+      }
+      const size = posXCursor - refIn.current?.offsetLeft!;
+      dispatch(consoleChangeSize(size));
+    },
+    [dispatch, isDrag, minWidth, padSide]
+  );
+
+  const customHandleChange = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
+    const valueTextarea = e.target.value;
+    if (isJsonString(valueTextarea)) {
+      setError(false);
+    } else {
+      setError(true);
     }
-    const widthDragButton = refDrag.current?.offsetWidth! / 2;
-    const posXCursor = e.pageX - widthDragButton;
-    const posXInput = refIn.current?.offsetWidth!;
-    const posXOutput = refOut.current?.offsetWidth!;
-    const widthWindow = document.documentElement.clientWidth;
-    if (
-      (posXInput <= minWidth || posXOutput <= minWidth) &&
-      (posXCursor <= minWidth + widthDragButton || widthWindow - posXCursor <= minWidth + widthDragButton + padSide * 2)
-    ) {
-      return;
-    }
-    const size = posXCursor - refIn.current?.offsetLeft!;
-    dispatch(consoleChangeSize(size));
-  }, [dispatch, isDrag, minWidth, padSide]);
+    dispatch(consoleChangeValue(valueTextarea));
+  }, [dispatch]);
 
   return (
     <WrapperConsole padSide={padSide} widthIn={widthIn}>
-      <Textarea label="Запрос:" name="request" ref={refIn} />
+      <Textarea error={error} label="Запрос:" name="request" ref={refIn} value={value} onChange={customHandleChange} />
       <WrapperDragButton ref={refDrag}>
         <DragButton onMouseDown={handleChangeDrag} onMouseUp={handleChangeDrag} onMouseMove={handleDrag} />
       </WrapperDragButton>
-      <Textarea label="Ответ:" name="response" variant="out" ref={refOut} />
+      <Textarea error={errorResponse} label="Ответ:" name="response" variant="out" ref={refOut} value={valueResponse} />
     </WrapperConsole>
   );
 };

@@ -14,13 +14,20 @@ const Wrapper = styled.div`
 `;
 
 const HomeComponent = () => {
-  const {widthIn} = useSelector((state: RootState) => state.console);
+  const {widthIn, value, valueResponse, errorResponse, loadingConsole} = useSelector((state: RootState) => state.console);
 
   return (
     <Wrapper>
       <Header />
       <Main>
-        <Console minWidth={MIN_WIDTH_TEXTAREA} widthIn={widthIn} />
+        <Console
+          loadingConsole={loadingConsole}
+          valueResponse={valueResponse}
+          errorResponse={errorResponse}
+          value={value}
+          minWidth={MIN_WIDTH_TEXTAREA}
+          widthIn={widthIn}
+        />
       </Main>
       <Footer />
     </Wrapper>
