@@ -1,11 +1,12 @@
-import {IError, IUser, nullableTypes} from '../../models';
-import {userTypes} from '../actionTypes';
+import {IError, IHistory, IUser, nullableTypes} from '../../models';
+import {consoleTypes, userTypes} from '../actionTypes';
 
+// User
 export interface IUserState {
   loading: boolean;
-  login: nullableTypes;
-  sublogin: nullableTypes;
-  sessionKey: nullableTypes;
+  login: nullableTypes<string>;
+  sublogin: nullableTypes<string>;
+  sessionKey: nullableTypes<string>;
   error: IError | null;
 }
 
@@ -43,3 +44,63 @@ export type UserLogout = {
 };
 
 export type UserActions = UserRequest | UserSuccess | UserFailure | UserCheck | UserLogout;
+
+// Console
+
+export interface IConsoleState {
+  value: string;
+  valueResponse: string;
+  widthIn: nullableTypes<number>;
+  loadingConsole: boolean;
+  errorResponse: boolean;
+  history: IHistory[];
+}
+
+export interface ConsoleSize {
+  type: typeof consoleTypes.CONSOLE_SIZE;
+  payload: number;
+}
+
+export interface ConsoleChange {
+  type: typeof consoleTypes.CONSOLE_CHANGE;
+  payload: string;
+}
+
+export interface ConsoleFormat {
+  type: typeof consoleTypes.CONSOLE_FORMAT;
+  payload: string;
+}
+
+export interface ConsoleRequest {
+  type: typeof consoleTypes.CONSOLE_REQUEST;
+  payload: string;
+}
+
+export type ConsoleSuccess = {
+  type: typeof consoleTypes.CONSOLE_SUCCESS;
+  payload: string;
+};
+
+export type ConsoleFailure = {
+  type: typeof consoleTypes.CONSOLE_FAILURE;
+  payload: string;
+};
+
+export type ConsoleHistoryClear = {
+  type: typeof consoleTypes.CONSOLE_HISTORY_CLEAR;
+};
+
+export type ConsoleHistoryDelete = {
+  type: typeof consoleTypes.CONSOLE_HISTORY_DELETE;
+  payload: string;
+};
+
+export type ConsoleActions =
+  | ConsoleSize
+  | ConsoleChange
+  | ConsoleRequest
+  | ConsoleSuccess
+  | ConsoleFailure
+  | ConsoleFormat
+  | ConsoleHistoryClear
+  | ConsoleHistoryDelete;

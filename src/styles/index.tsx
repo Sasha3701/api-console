@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle`
     :root {
         --color-green: #30B800;
         --color-shadow: rgba(0, 0, 0, 0.1);
+        --color-shadow-1: rgba(0, 0, 0, 0.25);
         --color-gray: rgba(0, 0, 0, 0.2);
         --color-gray-1: rgba(0, 0, 0, 0.4);
         --color-black: #0D0D0D;

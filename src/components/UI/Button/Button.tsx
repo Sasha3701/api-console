@@ -44,7 +44,7 @@ const WrapperRight = styled.div`
 `;
 
 const ButtonTransparent = styled.button`
-  padding: 4px;
+  padding: 0;
   background-color: transparent;
   border: none;
   display: flex;
@@ -74,11 +74,11 @@ const ButtonTransparent = styled.button`
 `;
 
 const Button = forwardRef<HTMLButtonElement, IPropsButton>(
-  ({children, loading = false, theme = 'fill', iconLeft, iconRight, ...props}, ref) => {
+  ({children, loading = false, theme = 'fill', iconLeft, iconRight, disabled, ...props}, ref) => {
     switch (theme) {
       case 'fill':
         return (
-          <ButtonFill ref={ref} {...props}>
+          <ButtonFill ref={ref} {...props} disabled={disabled || loading}>
             {loading ? <Loader /> : children}
           </ButtonFill>
         );

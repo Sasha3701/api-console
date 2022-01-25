@@ -17,6 +17,8 @@ const CustomHeader = styled.header`
   align-items: center;
   padding: 10px 15px;
   background-color: var(--color-gray-4);
+  box-sizing: border-box;
+  height: 50px;
 `;
 
 const EmptyBox = styled.div``;
@@ -54,7 +56,7 @@ const Header = (): JSX.Element => {
       <EmptyBox></EmptyBox>
       <Account style={{marginRight: '30px'}} login={login} sublogin={sublogin} />
       <Button onClick={logout} style={{marginRight: '30px'}} theme="transparent" iconRight={<LogoutIcon />}>
-        {CONTENT.HEADER.TITLE}
+        {CONTENT.HEADER.BUTTON}
       </Button>
       <Button onClick={handleChangeScreen} theme="transparent">
         {fullscreen ? <NoFullIcon /> : <FullIcon />}
