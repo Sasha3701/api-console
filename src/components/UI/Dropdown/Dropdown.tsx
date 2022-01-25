@@ -172,9 +172,13 @@ const Dropdown = (props: IHistory): JSX.Element => {
     fn: () => {},
   };
 
+  const handleClickOut = useCallback(() => {
+    setDropdownToggle(false);
+  }, []);
+
   return (
     <Manager>
-      <>
+      <div onMouseLeave={handleClickOut}>
         <Reference>
           {({ref}) => (
             <Container>
@@ -206,7 +210,7 @@ const Dropdown = (props: IHistory): JSX.Element => {
             )}
           </Popper>
         )}
-      </>
+      </div>
     </Manager>
   );
 };
