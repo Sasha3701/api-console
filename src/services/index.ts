@@ -6,9 +6,6 @@ import {IConsoleState} from '../store/types';
 import {formatJson, jsonFromStr} from '../utils';
 
 export const addHistory = (state: IConsoleState, status: boolean): IHistory[] => {
-  if (state.history.length >= MAX_HISTORY) {
-    return state.history;
-  }
   const newHistory = cloneDeep(state.history).find((item) => formatJson(item.request) === formatJson(state.value));
   if (!newHistory || state.history.length === 0) {
     const requestObj = jsonFromStr(state.value) as Record<string, any>;
@@ -18,7 +15,9 @@ export const addHistory = (state: IConsoleState, status: boolean): IHistory[] =>
       title: requestObj.action,
       request: formatJson(state.value),
     };
-    return [currentNewHistory, ...cloneDeep(state.history)];
+    return state.history.length >= MAX_HISTORY
+      ? [currentNewHistory, ...cloneDeep(state.history).slice(0, state.history.length - 1)]
+      : [currentNewHistory, ...cloneDeep(state.history)];
   }
   return [newHistory!, ...cloneDeep(state.history).filter((item) => item.id !== newHistory!.id)];
 };

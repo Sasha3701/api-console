@@ -10,7 +10,20 @@ const initialState: IConsoleState = {
   widthIn: null,
   loadingConsole: false,
   errorResponse: false,
-  history: [],
+  history: [
+    {
+      id: "1",
+      request: "{\n  \"action\": \"sys.settings.get\"\n}",
+      status: true,
+      title: "sys.settings.get",
+    },
+    {
+      id: "2",
+      request: "{\n  \"action\": \"pong\"\n}",
+      status: true,
+      title: "pong",
+    },
+  ],
 };
 
 const consoleReducer = (state = initialState, action: ConsoleActions) => {

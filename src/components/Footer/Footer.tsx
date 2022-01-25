@@ -19,7 +19,7 @@ const CustomFooter = styled.footer`
 
 const Footer = ({error}: IPropsFooter): JSX.Element => {
   const dispatch = useDispatch();
-  const {value} = useSelector((state: RootState) => state.console);
+  const {value, loadingConsole} = useSelector((state: RootState) => state.console);
 
   const handleSend = useCallback(() => {
     dispatch(consoleRequest(value));
@@ -31,7 +31,7 @@ const Footer = ({error}: IPropsFooter): JSX.Element => {
 
   return (
     <CustomFooter>
-      <Button onClick={handleSend} disabled={error}>
+      <Button onClick={handleSend} disabled={error} loading={loadingConsole}>
         {CONTENT.FOOTER.BUTTON.SEND}
       </Button>
       <Button onClick={handleFormat} theme="transparent" iconLeft={<SortIcon />}>
