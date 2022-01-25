@@ -1,5 +1,14 @@
 import {consoleTypes} from '../actionTypes';
-import {ConsoleChange, ConsoleFailure, ConsoleFormat, ConsoleHistoryClear, ConsoleRequest, ConsoleSize, ConsoleSuccess} from '../types';
+import {
+  ConsoleChange,
+  ConsoleFailure,
+  ConsoleFormat,
+  ConsoleHistoryClear,
+  ConsoleHistoryDelete,
+  ConsoleRequest,
+  ConsoleSize,
+  ConsoleSuccess,
+} from '../types';
 
 export const consoleChangeSize = (payload: number): ConsoleSize => {
   return {
@@ -46,5 +55,12 @@ export const consoleFailure = (payload: string): ConsoleFailure => {
 export const consoleHistoryClear = (): ConsoleHistoryClear => {
   return {
     type: consoleTypes.CONSOLE_HISTORY_CLEAR,
+  };
+};
+
+export const consoleHistoryDelete = (payload: string): ConsoleHistoryDelete => {
+  return {
+    type: consoleTypes.CONSOLE_HISTORY_DELETE,
+    payload,
   };
 };

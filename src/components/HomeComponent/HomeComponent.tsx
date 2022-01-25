@@ -5,10 +5,11 @@ import Header from '../Header/Header';
 import Main from '../Main/Main';
 import History from '../History/History';
 import {MIN_WIDTH_TEXTAREA} from '../../const';
-import {ChangeEvent, useCallback, useState} from 'react';
+import {ChangeEvent, useCallback, useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {isJsonString} from '../../utils';
 import {consoleChangeValue} from '../../store/actions/consoleAction';
+import {userCheck} from '../../store/actions/userAction';
 
 const Wrapper = styled.div`
   display: grid;
@@ -19,6 +20,10 @@ const Wrapper = styled.div`
 const HomeComponent = () => {
   const [error, setError] = useState<boolean>(false);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(userCheck());
+  }, []);
 
   const handleChange = useCallback(
     (e: ChangeEvent<HTMLTextAreaElement>) => {

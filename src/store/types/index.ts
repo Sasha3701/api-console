@@ -53,7 +53,7 @@ export interface IConsoleState {
   widthIn: nullableTypes<number>;
   loadingConsole: boolean;
   errorResponse: boolean;
-  history: IHistory[]
+  history: IHistory[];
 }
 
 export interface ConsoleSize {
@@ -90,4 +90,17 @@ export type ConsoleHistoryClear = {
   type: typeof consoleTypes.CONSOLE_HISTORY_CLEAR;
 };
 
-export type ConsoleActions = ConsoleSize | ConsoleChange | ConsoleRequest | ConsoleSuccess | ConsoleFailure | ConsoleFormat | ConsoleHistoryClear;
+export type ConsoleHistoryDelete = {
+  type: typeof consoleTypes.CONSOLE_HISTORY_DELETE;
+  payload: string;
+};
+
+export type ConsoleActions =
+  | ConsoleSize
+  | ConsoleChange
+  | ConsoleRequest
+  | ConsoleSuccess
+  | ConsoleFailure
+  | ConsoleFormat
+  | ConsoleHistoryClear
+  | ConsoleHistoryDelete;

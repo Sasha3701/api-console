@@ -1,6 +1,7 @@
 import {all, call, put, takeLatest} from 'redux-saga/effects';
 import sendsay from '../../api';
 import {IError, IUser} from '../../models';
+import {getCookie} from '../../utils';
 import {userFailure, userSuccess} from '../actions/userAction';
 import {userTypes} from '../actionTypes';
 import {UserRequest} from '../types';
@@ -26,6 +27,7 @@ function* checkSaga() {
   try {
     yield sendsay.request({
       action: 'pong',
+      session: getCookie('sendsay_ssesion'),
     });
   } catch (e) {
     yield put(

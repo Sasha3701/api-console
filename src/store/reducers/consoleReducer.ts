@@ -2,6 +2,7 @@ import {formatJson} from '../../utils';
 import {consoleTypes} from '../actionTypes';
 import {ConsoleActions, IConsoleState} from '../types';
 import {addHistory} from '../../services';
+import {cloneDeep} from 'lodash';
 
 const initialState: IConsoleState = {
   value: '',
@@ -55,6 +56,11 @@ const consoleReducer = (state = initialState, action: ConsoleActions) => {
       return {
         ...state,
         history: [],
+      };
+    case consoleTypes.CONSOLE_HISTORY_DELETE:
+      return {
+        ...state,
+        history: cloneDeep(state.history).filter((item) => item.id !== action.payload),
       };
     default:
       return {

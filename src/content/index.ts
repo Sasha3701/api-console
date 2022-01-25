@@ -39,7 +39,12 @@ export const CONTENT = {
       },
     },
     DROPDOWN: {
-      ACTIONS: ['Выполнить', 'Скопировать', 'Удалить'],
+      ACTIONS: {
+        EXECUTE: 'Выполнить',
+        COPY: 'Скопировать',
+        DELETE: 'Удалить',
+      },
+      ALERT: 'Скопировано'
     },
   },
   NOTIFICATION: {
