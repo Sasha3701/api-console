@@ -27,6 +27,7 @@ const consoleReducer = (state = initialState, action: ConsoleActions) => {
         valueResponse: action.payload,
         loadingConsole: false,
         history: result,
+        errorResponse: false,
       };
     case consoleTypes.CONSOLE_FAILURE:
       const newHistory = addHistory(state, false);

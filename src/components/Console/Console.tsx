@@ -1,4 +1,4 @@
-import {useCallback, useRef, useState} from 'react';
+import {useCallback, useRef} from 'react';
 import styled from 'styled-components';
 import {Textarea, DragButton} from '../UI';
 import {useDispatch, useSelector} from 'react-redux';
@@ -26,17 +26,9 @@ const Console = ({padSide = 15, minWidth = 100, errorInput, handleChange}: IProp
   const refIn = useRef<HTMLTextAreaElement>(null);
   const refOut = useRef<HTMLTextAreaElement>(null);
   const refDrag = useRef<HTMLDivElement>(null);
-  const [isDrag, setIsDrag] = useState<boolean>(false);
-
-  const handleChangeDrag = useCallback(() => {
-    setIsDrag((prevState) => !prevState);
-  }, []);
 
   const handleDrag = useCallback(
     (e) => {
-      if (!isDrag) {
-        return;
-      }
       const widthDragButton = refDrag.current?.offsetWidth! / 2;
       const posXCursor = e.pageX - widthDragButton;
       const posXInput = refIn.current?.offsetWidth!;
@@ -51,8 +43,16 @@ const Console = ({padSide = 15, minWidth = 100, errorInput, handleChange}: IProp
       const size = posXCursor - refIn.current?.offsetLeft!;
       dispatch(consoleChangeSize(size));
     },
-    [dispatch, isDrag, minWidth, padSide]
+    [dispatch, minWidth, padSide]
   );
+
+  const handleChangeDragDown = useCallback(() => {
+    document.addEventListener('mousemove', handleDrag);
+  }, [handleDrag]);
+
+  const handleChangeDragUp = useCallback(() => {
+    document.removeEventListener('mousemove', handleDrag);
+  }, [handleDrag]);
 
   return (
     <WrapperConsole padSide={padSide} widthIn={widthIn}>
@@ -65,7 +65,7 @@ const Console = ({padSide = 15, minWidth = 100, errorInput, handleChange}: IProp
         onChange={handleChange}
       />
       <WrapperDragButton ref={refDrag}>
-        <DragButton loading={loadingConsole} onMouseDown={handleChangeDrag} onMouseUp={handleChangeDrag} onMouseMove={handleDrag} />
+        <DragButton loading={loadingConsole} onMouseDown={handleChangeDragDown} onMouseUp={handleChangeDragUp} />
       </WrapperDragButton>
       <Textarea
         error={errorResponse}
