@@ -53,6 +53,7 @@ export interface IConsoleState {
   widthIn: nullableTypes<number>;
   loadingConsole: boolean;
   errorResponse: boolean;
+  errorRequest: boolean;
   history: IHistory[];
 }
 

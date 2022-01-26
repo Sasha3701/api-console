@@ -1,4 +1,4 @@
-import {formatJson} from '../../utils';
+import {formatJson, isJsonString} from '../../utils';
 import {consoleTypes} from '../actionTypes';
 import {ConsoleActions, IConsoleState} from '../types';
 import {addHistory} from '../../services';
@@ -8,20 +8,21 @@ const initialState: IConsoleState = {
   value: '',
   valueResponse: '',
   widthIn: null,
+  errorRequest: false,
   loadingConsole: false,
   errorResponse: false,
   history: [
     {
-      id: "1",
-      request: "{\n  \"action\": \"sys.settings.get\"\n}",
+      id: '1',
+      request: '{\n  "action": "sys.settings.get"\n}',
       status: true,
-      title: "sys.settings.get",
+      title: 'sys.settings.get',
     },
     {
-      id: "2",
-      request: "{\n  \"action\": \"pong\"\n}",
+      id: '2',
+      request: '{\n  "action": "pong"\n}',
       status: true,
-      title: "pong",
+      title: 'pong',
     },
   ],
 };
@@ -55,6 +56,7 @@ const consoleReducer = (state = initialState, action: ConsoleActions) => {
       return {
         ...state,
         value: formatJson(action.payload),
+        errorRequest: false,
       };
     case consoleTypes.CONSOLE_SIZE:
       return {
@@ -65,6 +67,7 @@ const consoleReducer = (state = initialState, action: ConsoleActions) => {
       return {
         ...state,
         value: action.payload,
+        errorRequest: !isJsonString(action.payload),
       };
     case consoleTypes.CONSOLE_HISTORY_CLEAR:
       return {
