@@ -1,6 +1,7 @@
 import {consoleTypes} from '../actionTypes';
 import {
   ConsoleChange,
+  ConsoleErrorRequest,
   ConsoleFailure,
   ConsoleFormat,
   ConsoleHistoryClear,
@@ -48,6 +49,13 @@ export const consoleSuccess = (payload: string): ConsoleSuccess => {
 export const consoleFailure = (payload: string): ConsoleFailure => {
   return {
     type: consoleTypes.CONSOLE_FAILURE,
+    payload,
+  };
+};
+
+export const consoleErrorRequest = (payload: boolean): ConsoleErrorRequest => {
+  return {
+    type: consoleTypes.CONSOLE_ERROR_REQUEST,
     payload,
   };
 };

@@ -96,6 +96,11 @@ export type ConsoleHistoryDelete = {
   payload: string;
 };
 
+export type ConsoleErrorRequest = {
+  type: typeof consoleTypes.CONSOLE_ERROR_REQUEST;
+  payload: boolean;
+};
+
 export type ConsoleActions =
   | ConsoleSize
   | ConsoleChange
@@ -104,4 +109,5 @@ export type ConsoleActions =
   | ConsoleFailure
   | ConsoleFormat
   | ConsoleHistoryClear
-  | ConsoleHistoryDelete;
+  | ConsoleHistoryDelete
+  | ConsoleErrorRequest;

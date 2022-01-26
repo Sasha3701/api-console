@@ -3,7 +3,7 @@ import {SortIcon} from '../../images';
 import {Button} from '../UI';
 import {useDispatch, useSelector} from 'react-redux';
 import {useCallback} from 'react';
-import {consoleFormatValue, consoleRequest} from '../../store/actions/consoleAction';
+import {consoleErrorRequest, consoleFormatValue, consoleRequest} from '../../store/actions/consoleAction';
 import {RootState} from '../../store/reducers/rootReducer';
 import {IPropsFooter} from './Footer.props';
 import {CONTENT} from '../../content';
@@ -22,6 +22,10 @@ const Footer = ({error}: IPropsFooter): JSX.Element => {
   const {value, loadingConsole} = useSelector((state: RootState) => state.console);
 
   const handleSend = useCallback(() => {
+    if (!value) {
+      dispatch(consoleErrorRequest(true));
+      return;
+    }
     dispatch(consoleRequest(value));
   }, [dispatch, value]);
 

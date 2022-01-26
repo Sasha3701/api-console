@@ -74,6 +74,11 @@ const consoleReducer = (state = initialState, action: ConsoleActions) => {
         ...state,
         history: [],
       };
+    case consoleTypes.CONSOLE_ERROR_REQUEST:
+      return {
+        ...state,
+        errorRequest: action.payload,
+      };
     case consoleTypes.CONSOLE_HISTORY_DELETE:
       return {
         ...state,
