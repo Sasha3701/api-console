@@ -4,7 +4,7 @@ export const isJsonString = (str: string): boolean => {
   } catch (e) {
     return false;
   }
-  return true;
+  return str === JSON.stringify(JSON.parse(str), null, 2) && true;
 };
 
 export const formatJson = (data: unknown): string => {
